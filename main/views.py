@@ -4,8 +4,11 @@ from django.http import HttpResponse
 from .models import CV
 import io
 from xhtml2pdf import pisa
+from rest_framework import viewsets
+from .serializers import CVSerializer
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 
-# Create your views here.
 
 def index(request):
     cvs = CV.objects.all()
@@ -36,3 +39,28 @@ def render_pdf_view(request, cv_id):
         response['Content-Disposition'] = f'attachment; filename="{cv.first_name}_{cv.last_name}_CV.pdf"'
         return response
     return HttpResponse("Error generating PDF", status=500)
+
+class CVViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint for managing CVs.
+    
+    list:
+    Return a list of all CVs.
+    
+    create:
+    Create a new CV.
+    
+    retrieve:
+    Return the details of a specific CV.
+    
+    update:
+    Update all fields of a specific CV.
+    
+    partial_update:
+    Update one or more fields of a specific CV.
+    
+    destroy:
+    Delete a specific CV.
+    """
+    queryset = CV.objects.all()
+    serializer_class = CVSerializer
