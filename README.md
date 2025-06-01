@@ -134,25 +134,6 @@ python manage.py loaddata */fixtures/*.json
 python manage.py loaddata cv_fixture.json
 ```
 
-### Running Tests
-
-The project includes tests for views and models. To run the tests:
-
-```bash
-# Run all tests
-python manage.py test
-
-# Run specific test file
-python manage.py test main.tests.test_views
-
-# Run specific test case
-python manage.py test main.tests.test_views.CVListViewTests
-
-# Run with coverage report
-coverage run manage.py test
-coverage report
-coverage html  # Generates HTML report in htmlcov/
-```
 
 ## Contributing
 
