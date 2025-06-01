@@ -40,27 +40,9 @@ def render_pdf_view(request, cv_id):
         return response
     return HttpResponse("Error generating PDF", status=500)
 
+def settings_view(request):
+    return render(request, 'settings.html')
+
 class CVViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint for managing CVs.
-    
-    list:
-    Return a list of all CVs.
-    
-    create:
-    Create a new CV.
-    
-    retrieve:
-    Return the details of a specific CV.
-    
-    update:
-    Update all fields of a specific CV.
-    
-    partial_update:
-    Update one or more fields of a specific CV.
-    
-    destroy:
-    Delete a specific CV.
-    """
     queryset = CV.objects.all()
     serializer_class = CVSerializer

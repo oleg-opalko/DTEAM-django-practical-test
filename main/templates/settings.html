@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %}Django Settings{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Django Settings</h1>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Basic Settings</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <th>DEBUG</th>
+                            <td>{{ settings.DEBUG }}</td>
+                        </tr>
+                        <tr>
+                            <th>Language Code</th>
+                            <td>{{ settings.LANGUAGE_CODE }}</td>
+                        </tr>
+                        <tr>
+                            <th>Time Zone</th>
+                            <td>{{ settings.TIME_ZONE }}</td>
+                        </tr>
+                        <tr>
+                            <th>Use I18N</th>
+                            <td>{{ settings.USE_I18N }}</td>
+                        </tr>
+                        <tr>
+                            <th>Use TZ</th>
+                            <td>{{ settings.USE_TZ }}</td>
+                        </tr>
+                        <tr>
+                            <th>Static URL</th>
+                            <td>{{ settings.STATIC_URL }}</td>
+                        </tr>
+                        <tr>
+                            <th>Media URL</th>
+                            <td>{{ settings.MEDIA_URL }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Installed Apps</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        {% for app in settings.INSTALLED_APPS %}
+                        <li class="list-group-item">{{ app }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Middleware</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        {% for middleware in settings.MIDDLEWARE %}
+                        <li class="list-group-item">{{ middleware }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Template Settings</h5>
+                </div>
+                <div class="card-body">
+                    {% for template in settings.TEMPLATES %}
+                    <h6>Template Backend: {{ template.BACKEND }}</h6>
+                    <ul>
+                        <li>Template Dirs: {{ template.DIRS }}</li>
+                        <li>App Dirs: {{ template.APP_DIRS }}</li>
+                    </ul>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
