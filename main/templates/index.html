@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}CV List{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">CV List</h1>
+    
+    {% for cv in cvs %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ cv.full_name }}</h5>
+            <p class="card-text">
+                <strong>Skills:</strong> {{ cv.skills }}<br>
+                <strong>Projects:</strong> {{ cv.projects }}<br>
+                <strong>Bio:</strong> {{ cv.bio }}<br>
+                <strong>Contacts:</strong> {{ cv.contacts }}
+            </p>
+            <a href="{% url 'cv_detail' cv.id %}" class="btn btn-primary">View Details</a>
+        </div>
+    </div>
+    {% empty %}
+    <div class="alert alert-info">
+        No CVs found.
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

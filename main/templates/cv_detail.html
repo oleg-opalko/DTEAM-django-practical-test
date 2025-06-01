@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ cv.first_name }} {{ cv.last_name }} - CV{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'index' %}">CV List</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ cv.first_name }} {{ cv.last_name }}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title mb-4">{{ cv.first_name }} {{ cv.last_name }}</h1>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Skills</h3>
+                    <p>{{ cv.skills }}</p>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <h3>Projects</h3>
+                    <p>{{ cv.projects }}</p>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <h3>Bio</h3>
+                    <p>{{ cv.bio }}</p>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <h3>Contacts</h3>
+                    <p>{{ cv.contacts }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

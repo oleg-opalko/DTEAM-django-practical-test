@@ -1,0 +1,38 @@
+[
+    {
+        "model": "main.cv",
+        "pk": 1,
+        "fields": {
+            "first_name": "John",
+            "last_name": "Doe",
+            "skills": "Python, Django, HTML, CSS, JavaScript",
+            "projects": "Project 1, Project 2, Project 3",
+            "bio": "I am a software engineer with a passion for building web applications.",
+            "contacts": "john.doe@example.com, +1234567890"
+        }
+    },
+    {
+        "model": "main.cv",
+        "pk": 2,
+        "fields": {
+            "first_name": "Jane",
+            "last_name": "Smith",
+            "skills": "Python, Django, HTML, CSS, JavaScript",
+            "projects": "Project 1, Project 2, Project 3",
+            "bio": "I am a software engineer with a passion for building web applications.",
+            "contacts": "jane.smith@example.com, +1234567890"
+        }
+    },
+    {
+        "model": "main.cv",
+        "pk": 3,
+        "fields": {
+            "first_name": "Jim",
+            "last_name": "Beam",
+            "skills": "Python, Django, HTML, CSS, JavaScript",
+            "projects": "Project 1, Project 2, Project 3",
+            "bio": "I am a software engineer with a passion for building web applications.",
+            "contacts": "jim.beam@example.com, +1234567890"
+        }
+    }
+]
