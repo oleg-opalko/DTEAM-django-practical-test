@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ cv.first_name }} {{ cv.last_name }} - CV</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        h3 {
+            color: #666;
+            margin-top: 20px;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ cv.first_name }} {{ cv.last_name }}</h1>
+    
+    <div class="section">
+        <h3>Skills</h3>
+        <p>{{ cv.skills }}</p>
+    </div>
+
+    <div class="section">
+        <h3>Projects</h3>
+        <p>{{ cv.projects }}</p>
+    </div>
+
+    <div class="section">
+        <h3>Bio</h3>
+        <p>{{ cv.bio }}</p>
+    </div>
+
+    <div class="section">
+        <h3>Contacts</h3>
+        <p>{{ cv.contacts }}</p>
+    </div>
+</body>
+</html> 

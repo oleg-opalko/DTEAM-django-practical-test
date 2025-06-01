@@ -12,6 +12,11 @@
                     <li class="breadcrumb-item active" aria-current="page">{{ cv.first_name }} {{ cv.last_name }}</li>
                 </ol>
             </nav>
+            <div class="d-flex justify-content-end mb-3">
+                <a href="{% url 'cv_pdf' cv.id %}" class="btn btn-primary">
+                    <i class="fas fa-file-pdf"></i> Download PDF
+                </a>
+            </div>
         </div>
     </div>
 
