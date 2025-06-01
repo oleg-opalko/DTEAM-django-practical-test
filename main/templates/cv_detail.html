@@ -1,54 +1,82 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ cv.first_name }} {{ cv.last_name }} - CV{% endblock %}
+{% block title %}{{ cv.full_name }}'s CV{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
     <div class="row">
-        <div class="col-12">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{% url 'index' %}">CV List</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ cv.first_name }} {{ cv.last_name }}</li>
-                </ol>
-            </nav>
-            <div class="d-flex justify-content-end mb-3">
-                <a href="{% url 'cv_pdf' cv.id %}" class="btn btn-primary">
-                    <i class="fas fa-file-pdf"></i> Download PDF
-                </a>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title">{{ cv.full_name }}</h1>
+                    
+                    <div class="contact-info mb-4">
+                        <p><strong>Email:</strong> {{ cv.email }}</p>
+                        <p><strong>Phone:</strong> {{ cv.phone }}</p>
+                        {% if cv.address %}
+                        <p><strong>Address:</strong> {{ cv.address }}</p>
+                        {% endif %}
+                    </div>
+
+                    {% if cv.summary %}
+                    <div class="section mb-4">
+                        <h3>Professional Summary</h3>
+                        <p>{{ cv.summary }}</p>
+                    </div>
+                    {% endif %}
+
+                    {% if cv.experience %}
+                    <div class="section mb-4">
+                        <h3>Work Experience</h3>
+                        {% for exp in cv.experience.all %}
+                        <div class="experience-item mb-3">
+                            <h4>{{ exp.position }} at {{ exp.company }}</h4>
+                            <p class="text-muted">{{ exp.start_date }} - {{ exp.end_date|default:"Present" }}</p>
+                            <p>{{ exp.description }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {% if cv.education %}
+                    <div class="section mb-4">
+                        <h3>Education</h3>
+                        {% for edu in cv.education.all %}
+                        <div class="education-item mb-3">
+                            <h4>{{ edu.degree }} in {{ edu.field_of_study }}</h4>
+                            <p>{{ edu.institution }}</p>
+                            <p class="text-muted">{{ edu.start_date }} - {{ edu.end_date|default:"Present" }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {% if cv.skills %}
+                    <div class="section mb-4">
+                        <h3>Skills</h3>
+                        <p>{{ cv.skills }}</p>
+                    </div>
+                    {% endif %}
+
+                    <div class="mt-4">
+                        <a href="{% url 'cv_pdf' cv.id %}" class="btn btn-primary">Download PDF</a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="card">
-        <div class="card-body">
-            <h1 class="card-title mb-4">{{ cv.first_name }} {{ cv.last_name }}</h1>
-            
-            <div class="row">
-                <div class="col-md-12">
-                    <h3>Skills</h3>
-                    <p>{{ cv.skills }}</p>
-                </div>
-            </div>
-
-            <div class="row mt-4">
-                <div class="col-md-12">
-                    <h3>Projects</h3>
-                    <p>{{ cv.projects }}</p>
-                </div>
-            </div>
-
-            <div class="row mt-4">
-                <div class="col-md-12">
-                    <h3>Bio</h3>
-                    <p>{{ cv.bio }}</p>
-                </div>
-            </div>
-
-            <div class="row mt-4">
-                <div class="col-md-12">
-                    <h3>Contacts</h3>
-                    <p>{{ cv.contacts }}</p>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Send CV to Email</h5>
+                    <form method="post" action="{% url 'send_cv_email' cv.id %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send PDF to Email</button>
+                    </form>
                 </div>
             </div>
         </div>
