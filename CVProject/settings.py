@@ -160,3 +160,27 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER)
+
+# OpenAI Configuration
+OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
+
+# Available languages for translation
+AVAILABLE_LANGUAGES = [
+    'Cornish',
+    'Manx',
+    'Breton',
+    'Inuktitut',
+    'Kalaallisut',
+    'Romani',
+    'Occitan',
+    'Ladino',
+    'Northern Sami',
+    'Upper Sorbian',
+    'Kashubian',
+    'Zazaki',
+    'Chuvash',
+    'Livonian',
+    'Tsakonian',
+    'Saramaccan',
+    'Bislama',
+]
