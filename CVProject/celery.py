@@ -15,14 +15,18 @@ app.autodiscover_tasks()
 def debug_task(self):
     print(f'Request: {self.request!r}')
 
+# Get Redis URL from environment variable or use local Redis as fallback
+REDIS_URL = os.getenv('REDIS_URL', 'redis://127.0.0.1:6379/0')
+
 app.conf.update(
-    broker_url='redis://127.0.0.1:6379/0',
-    result_backend='redis://127.0.0.1:6379/0',
+    broker_url=REDIS_URL,
+    result_backend=REDIS_URL,
     task_serializer='json',
     accept_content=['json'],
     result_serializer='json',
     timezone='UTC',
     broker_connection_retry_on_startup=True,
+    broker_use_ssl=os.getenv('REDIS_SSL', 'False').lower() == 'true',
     task_routes={
         'main.tasks.send_cv_pdf_email': {'queue': 'email'},
     },
