@@ -1,5 +1,7 @@
 import os
 from celery import Celery
+from celery.signals import after_setup_logger
+import logging
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'CVProject.settings')
 
@@ -14,10 +16,32 @@ def debug_task(self):
     print(f'Request: {self.request!r}')
 
 app.conf.update(
-    broker_url='redis://redis:6379/0',
-    result_backend='redis://redis:6379/0',
+    broker_url='redis://127.0.0.1:6379/0',
+    result_backend='redis://127.0.0.1:6379/0',
     task_serializer='json',
     accept_content=['json'],
     result_serializer='json',
     timezone='UTC',
-) 
+    broker_connection_retry_on_startup=True,
+    task_routes={
+        'main.tasks.send_cv_pdf_email': {'queue': 'email'},
+    },
+    task_default_queue='default',
+    task_queues={
+        'default': {
+            'exchange': 'default',
+            'routing_key': 'default',
+        },
+        'email': {
+            'exchange': 'email',
+            'routing_key': 'email',
+        },
+    }
+)
+
+@after_setup_logger.connect
+def setup_loggers(logger, *args, **kwargs):
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    handler = logging.StreamHandler()
+    handler.setFormatter(formatter)
+    logger.addHandler(handler) 

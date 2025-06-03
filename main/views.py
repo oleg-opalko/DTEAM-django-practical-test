@@ -11,7 +11,9 @@ from .tasks import send_cv_pdf_email
 from .utils import generate_pdf
 from .translation_utils import translate_cv
 from django.conf import settings
+import logging
 
+logger = logging.getLogger(__name__)
 
 def index(request):
     cvs = CV.objects.all()
@@ -38,16 +40,26 @@ def settings_view(request):
     return render(request, 'settings.html')
 
 def send_cv_email(request, cv_id):
+    logger.info(f"Received request to send CV {cv_id}")
     if request.method == 'POST':
         email = request.POST.get('email')
+        logger.info(f"Email from POST data: {email}")
         cv = get_object_or_404(CV, id=cv_id)
+        logger.info(f"Found CV: {cv.full_name}")
         
-        # Trigger Celery task
-        send_cv_pdf_email.delay(cv.id, email)
-        
-        messages.success(request, f'CV will be sent to {email} shortly.')
-        return redirect('cv_detail', cv_id=cv.id)
+        try:
+            logger.info("Attempting to send task to Celery")
+            task = send_cv_pdf_email.delay(cv.id, email)
+            logger.info(f"Task sent to Celery with ID: {task.id}")
+            
+            messages.success(request, f'CV will be sent to {email} shortly.')
+            return redirect('cv_detail', cv_id=cv.id)
+        except Exception as e:
+            logger.error(f"Error sending task to Celery: {str(e)}")
+            messages.error(request, 'Error sending CV. Please try again later.')
+            return redirect('cv_detail', cv_id=cv.id)
     
+    logger.warning(f"Invalid request method: {request.method}")
     return redirect('cv_detail', cv_id=cv_id)
 
 def translate_cv_view(request, cv_id):

@@ -38,8 +38,8 @@
     <div class="header">
         <h1>{{ cv.full_name }}</h1>
         <div class="contact-info">
-            <p>Email: {{ cv.email }}</p>
-            <p>Phone: {{ cv.phone }}</p>
+            <p>Bio: {{ cv.bio }}</p>
+            <p>Contacts: {{ cv.contacts }}</p>
             {% if cv.address %}
             <p>Address: {{ cv.address }}</p>
             {% endif %}
@@ -83,6 +83,12 @@
     <div class="section">
         <div class="section-title">Skills</div>
         <p>{{ cv.skills }}</p>
+    </div>
+    {% endif %}
+    {% if cv.projects %}
+    <div class="section">
+        <div class="section-title">Projects</div>
+        <p>{{ cv.projects }}</p>
     </div>
     {% endif %}
 </body>
